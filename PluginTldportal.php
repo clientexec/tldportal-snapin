@@ -4,10 +4,16 @@ require_once 'library/CE/XmlFunctions.php';
 
 class Plugintldportal extends SnapinPlugin
 {
-    var $settingsNotes = /*T*/'When enabled this snapin allowos your customers the use of the eNom TLD Watchlist.'/*/T*/;
+    var $settingsNotes;
 
     protected $featureSet = 'products';
     public $title = 'New TLD Portal';
+
+    function __construct($user, $typeOfFetch)
+    {
+        $this->settingsNotes = lang('When enabled this snapin allows your customers the use of the eNom TLD Watchlist.');
+        parent::__construct($user, $typeOfFetch);
+    }
 
     function getVariables()
     {
@@ -28,13 +34,13 @@ class Plugintldportal extends SnapinPlugin
             ),
             'Login' => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Enter your username for your eNom reseller account.  Don\'t have an eNom account?  Get a FREE account <a target="_blank" href="https://www.clientexec.com/members/index.php?fuse=admin&view=snapin&controller=snapins&plugin=enomform">here</a>.'/*/T*/,
+                'description'   => lang('Enter your username for your eNom reseller account.  Don\'t have an eNom account?  Get a FREE account <a target="_blank" href="https://www.clientexec.com/members/index.php?fuse=admin&view=snapin&controller=snapins&plugin=enomform">here</a>.'),
                 'value'         => '',
                 'required'      => true
             ),
             'Password'  => array(
                 'type'          => 'password',
-                'description'   => /*T*/'Enter the password for your eNom reseller account.'/*/T*/,
+                'description'   => lang('Enter the password for your eNom reseller account.'),
                 'value'         => '',
             ),
             'Company Name' => array(
@@ -44,12 +50,12 @@ class Plugintldportal extends SnapinPlugin
             ),
             'Support Email Address' => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Will appear as the Reply To field for email sent on your behalf.'/*/T*/,
+                'description'   => lang('Will appear as the Reply To field for email sent on your behalf.'),
                 'value'         => $email,
             ),
             'Default Portal URL' => array(
                 'type'          => 'text',
-                'description'   => /*T*/'Where we should send your users when communicating to them about their new TLD lists.<br/><br/> By clicking update you agreee to the <a href="http://www.enom.com/terms/agreement.aspx?page=tldportalreseller" target="_blank">terms & conditions</a><br/><br/><a target="_blank" href="http://www.enom.com/tld-portal/manage.aspx">Click Here For Additional Configuration</a>'/*/T*/,
+                'description'   => lang('Where we should send your users when communicating to them about their new TLD lists.<br/><br/> By clicking update you agreee to the <a href="http://www.enom.com/terms/agreement.aspx?page=tldportalreseller" target="_blank">terms & conditions</a><br/><br/><a target="_blank" href="http://www.enom.com/tld-portal/manage.aspx">Click Here For Additional Configuration</a>'),
                 'value'         => CE_Lib::getSoftwareURL() . '/index.php?fuse=admin&view=snapin&controller=snapins&plugin=tldportal',
             ),
             'Portal ID' => array(
