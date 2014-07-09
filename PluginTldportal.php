@@ -4,15 +4,12 @@ require_once 'library/CE/XmlFunctions.php';
 
 class Plugintldportal extends SnapinPlugin
 {
-    var $settingsNotes;
-
-    protected $featureSet = 'products';
     public $title = 'New TLD Portal';
 
-    function __construct($user, $typeOfFetch)
+    public function init()
     {
         $this->settingsNotes = lang('When enabled this snapin allows your customers the use of the eNom TLD Watchlist.');
-        parent::__construct($user, $typeOfFetch);
+        $this->addMappingForPublicMain("view", "New TLD Portal", 'When enabled this snapin allows your customers the use of the eNom TLD Watchlist', 'icon-th');
     }
 
     function getVariables()
@@ -25,11 +22,6 @@ class Plugintldportal extends SnapinPlugin
             'Plugin Name'       => array(
                 'type'        => 'hidden',
                 'description' => '',
-                'value'       => 'New TLD Portal',
-            ),
-            'Public Name'       => array(
-                'type'        => 'hidden',
-                'description' => 'Name to be seen if viewing from public portal',
                 'value'       => 'New TLD Portal',
             ),
             'Login' => array(
@@ -63,21 +55,11 @@ class Plugintldportal extends SnapinPlugin
                 'description'   => 'Internal value for Portal ID',
                 'value'         => '',
             ),
-            /*T*/"PublicOnly"/*/T*/ => array (
-                "type"          =>"hidden",
-                "value"         =>true
-               ),
             'Public Description'       => array(
                 'type'        => 'hidden',
                 'description' => 'Description to be seen by public',
                 'value'       => 'Pre-order and track Domains and TLDs',
             ),
-            'Public Icon'       => array(
-                'type'        => 'hidden',
-                'description' => 'Image name to use to identify snapin',
-                'value'       => 'icon-th',
-            ),
-
         );
 
         return $variables;
@@ -85,6 +67,8 @@ class Plugintldportal extends SnapinPlugin
 
     function view()
     {
+        $this->overrideTemplate = true;
+
         if ( $this->user->isAnonymous() ) {
             $msg = $this->user->lang("Permission Denied");
             CE_Lib::addErrorMessage('<b>'.$msg.'</b><br/>'.$this->user->lang('You must be logged in to view this page.'));
